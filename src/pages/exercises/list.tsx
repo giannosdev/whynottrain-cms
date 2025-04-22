@@ -11,42 +11,42 @@ import {
 } from "@refinedev/mui";
 import React from "react";
 
-export const BlogPostList = () => {
+export const ExercisesList = () => {
   const { dataGridProps } = useDataGrid({});
 
-  const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: "categories",
-    ids:
-      dataGridProps?.rows
-        ?.map((item: any) => item?.category?.id)
-        .filter(Boolean) ?? [],
-    queryOptions: {
-      enabled: !!dataGridProps?.rows,
-    },
-  });
+  // const { data: categoryData, isLoading: categoryIsLoading } = useMany({
+  //   resource: "categories",
+  //   ids:
+  //     dataGridProps?.rows
+  //       ?.map((item: any) => item?.category?.id)
+  //       .filter(Boolean) ?? [],
+  //   queryOptions: {
+  //     enabled: !!dataGridProps?.rows,
+  //   },
+  // });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
+      // {
+      //   field: "id",
+      //   headerName: "ID",
+      //   type: "number",
+      //   minWidth: 50,
+      //   display: "flex",
+      //   align: "left",
+      //   headerAlign: "left",
+      // },
       {
-        field: "id",
-        headerName: "ID",
-        type: "number",
-        minWidth: 50,
+        field: "name",
+        headerName: "Name",
+        minWidth: 300,
         display: "flex",
-        align: "left",
-        headerAlign: "left",
       },
       {
-        field: "title",
-        headerName: "Title",
-        minWidth: 200,
-        display: "flex",
-      },
-      {
-        field: "content",
+        field: "description",
         flex: 1,
-        headerName: "Content",
-        minWidth: 250,
+        headerName: "Description",
+        minWidth: 150,
         display: "flex",
         renderCell: function render({ value }) {
           if (!value) return "-";
@@ -62,32 +62,36 @@ export const BlogPostList = () => {
           );
         },
       },
+      // {
+      //   field: "workouts",
+      //   headerName: "Workouts",
+      //   minWidth: 400,
+      //   display: "flex",
+      //   renderCell: function render({value}) {
+      //     // value is an array of 'workouts'
+      //     return (
+      //       <Typography component="p">
+      //         {value.map((workout: any) => workout.name).join(", ")}
+      //       </Typography>
+      //     );
+      //
+      //   },
+      // },
+      // {
+      //   field: "rotationDays",
+      //   headerName: "Rotation Days",
+      //   minWidth: 130,
+      //   display: "flex",
+      // },
+      // {
+      //   field: "durationDays",
+      //   headerName: "Duration Days",
+      //   minWidth: 130,
+      //   display: "flex",
+      // },
       {
-        field: "category",
-        headerName: "Category",
-        minWidth: 160,
-        display: "flex",
-        valueGetter: (_, row) => {
-          const value = row?.category;
-          return value;
-        },
-        renderCell: function render({ value }) {
-          return categoryIsLoading ? (
-            <>Loading...</>
-          ) : (
-            categoryData?.data?.find((item) => item.id === value?.id)?.title
-          );
-        },
-      },
-      {
-        field: "status",
-        headerName: "Status",
-        minWidth: 80,
-        display: "flex",
-      },
-      {
-        field: "createdAt",
-        headerName: "Created at",
+        field: "updatedAt",
+        headerName: "Updated at",
         minWidth: 120,
         display: "flex",
         renderCell: function render({ value }) {
@@ -113,8 +117,10 @@ export const BlogPostList = () => {
         },
       },
     ],
-    [categoryData, categoryIsLoading]
+    []
   );
+
+  console.log('dataGridProps', dataGridProps)
 
   return (
     <List>

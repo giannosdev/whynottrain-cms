@@ -8,7 +8,7 @@ import {
 } from "@refinedev/mui";
 import React from "react";
 
-export const CategoryList = () => {
+export const ExerciseTypeList = () => {
   const { dataGridProps } = useDataGrid({});
 
   const columns = React.useMemo<GridColDef[]>(
@@ -23,9 +23,9 @@ export const CategoryList = () => {
         headerAlign: "left",
       },
       {
-        field: "title",
+        field: "name",
         flex: 1,
-        headerName: "Title",
+        headerName: "Name",
         minWidth: 200,
         display: "flex",
       },

@@ -1,6 +1,7 @@
 import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
 import { DevtoolsPanel, DevtoolsProvider } from "@refinedev/devtools";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 import {
   ErrorComponent,
@@ -23,11 +24,11 @@ import { authProvider } from "./authProvider";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from "./pages/blog-posts";
+  ProgramsCreate,
+  ProgramsEdit,
+  ProgramsList,
+  ProgramsShow,
+} from "./pages/programs";
 import {
   CategoryCreate,
   CategoryEdit,
@@ -37,11 +38,17 @@ import {
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import {ExercisesCreate, ExercisesEdit, ExercisesList, ExercisesShow} from "./pages/exercises";
+import {Layers, LibraryBooks, Timer} from "@mui/icons-material";
+import {EquipmentCreate, EquipmentEdit, EquipmentList, EquipmentShow} from "./pages/equipment";
+import {MuscleGroupCreate, MuscleGroupEdit, MuscleGroupList, MuscleGroupShow} from "./pages/muscle-groups";
+import {WorkoutsCreate, WorkoutsEdit, WorkoutsList, WorkoutsShow} from "./pages/workouts";
+import {ExerciseTypeCreate, ExerciseTypeEdit, ExerciseTypeList, ExerciseTypeShow} from "./pages/exercise-types";
 
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
+      {/*<GitHubBanner />*/}
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <CssBaseline />
@@ -49,29 +56,84 @@ function App() {
           <RefineSnackbarProvider>
             <DevtoolsProvider>
               <Refine
-                dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+                dataProvider={dataProvider("http://localhost:3000")}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
                 resources={[
                   {
-                    name: "blog_posts",
-                    list: "/blog-posts",
-                    create: "/blog-posts/create",
-                    edit: "/blog-posts/edit/:id",
-                    show: "/blog-posts/show/:id",
+                    name: "properties",
                     meta: {
-                      canDelete: true,
+                      label: "Properties",
+                      // icon: <YourIcon />, // optional icon
                     },
                   },
                   {
-                    name: "categories",
-                    list: "/categories",
-                    create: "/categories/create",
-                    edit: "/categories/edit/:id",
-                    show: "/categories/show/:id",
+                    name: "exercise-types",
+                    list: ExerciseTypeList,
+                    edit: ExerciseTypeEdit,
+                    create: ExerciseTypeCreate,
+                    meta: { label: "Exercise Types", parent: "properties", icon: <></> },
+                  },
+                  {
+                    name: "equipment",
+                    list: EquipmentList,
+                    edit: EquipmentEdit,
+                    create: EquipmentCreate,
+                    meta: { label: "Equipment", parent: "properties", icon: <></> },
+                  },
+                  {
+                    name: "muscle-groups",
+                    list: MuscleGroupList,
+                    edit: MuscleGroupEdit,
+                    create: MuscleGroupCreate,
+                    meta: { label: "Muscle Groups", parent: "properties", icon: <></> },
+                  },
+                  {
+                    name: "training-library",
+                    meta: {
+                      label: "Training Library",
+                      icon: <LibraryBooks />,
+                    },
+                  },
+                  {
+                    name: "exercises",
+                    list: "/exercises",
+                    create: "/exercises/create",
+                    edit: "/exercises/edit/:id",
+                    show: "/exercises/show/:id",
+
                     meta: {
                       canDelete: true,
+                      icon: <FitnessCenterIcon/>,
+                      parent: "training-library",
+                    },
+                  },
+                  {
+                    name: "workouts",
+                    list: "/workouts",
+                    create: "/workouts/create",
+                    edit: "/workouts/edit/:id",
+                    show: "/workouts/show/:id",
+
+                    meta: {
+                      canDelete: true,
+                      icon: <Timer/>,
+                      parent: "training-library",
+                    },
+                  },
+                  {
+                    name: "programs",
+                    list: "/programs",
+                    create: "/programs/create",
+                    edit: "/programs/edit/:id",
+                    show: "/programs/show/:id",
+
+                    meta: {
+                      canDelete: true,
+                      icon: <Layers />,
+                      parent: "training-library",
+
                     },
                   },
                 ]}
@@ -97,19 +159,43 @@ function App() {
                   >
                     <Route
                       index
-                      element={<NavigateToResource resource="blog_posts" />}
+                      element={<NavigateToResource resource="programs" />}
                     />
-                    <Route path="/blog-posts">
-                      <Route index element={<BlogPostList />} />
-                      <Route path="create" element={<BlogPostCreate />} />
-                      <Route path="edit/:id" element={<BlogPostEdit />} />
-                      <Route path="show/:id" element={<BlogPostShow />} />
+                    <Route path="/exercise-types">
+                      <Route index element={<ExerciseTypeList />} />
+                      <Route path="create" element={<ExerciseTypeCreate />} />
+                      <Route path="edit/:id" element={<ExerciseTypeEdit />} />
+                      <Route path="show/:id" element={<ExerciseTypeShow />} />
                     </Route>
-                    <Route path="/categories">
-                      <Route index element={<CategoryList />} />
-                      <Route path="create" element={<CategoryCreate />} />
-                      <Route path="edit/:id" element={<CategoryEdit />} />
-                      <Route path="show/:id" element={<CategoryShow />} />
+                    <Route path="/equipment">
+                      <Route index element={<EquipmentList />} />
+                      <Route path="create" element={<EquipmentCreate />} />
+                      <Route path="edit/:id" element={<EquipmentEdit />} />
+                      <Route path="show/:id" element={<EquipmentShow />} />
+                    </Route>
+                    <Route path="/muscle-groups">
+                      <Route index element={<MuscleGroupList />} />
+                      <Route path="create" element={<MuscleGroupCreate />} />
+                      <Route path="edit/:id" element={<MuscleGroupEdit />} />
+                      <Route path="show/:id" element={<MuscleGroupShow />} />
+                    </Route>
+                    <Route path="/programs">
+                      <Route index element={<ProgramsList />} />
+                      <Route path="create" element={<ProgramsCreate />} />
+                      <Route path="edit/:id" element={<ProgramsEdit />} />
+                      <Route path="show/:id" element={<ProgramsShow />} />
+                    </Route>
+                    <Route path="/workouts">
+                      <Route index element={<WorkoutsList />} />
+                      <Route path="create" element={<WorkoutsCreate />} />
+                      <Route path="edit/:id" element={<WorkoutsEdit />} />
+                      <Route path="show/:id" element={<WorkoutsShow />} />
+                    </Route>
+                    <Route path="/exercises">
+                      <Route index element={<ExercisesList />} />
+                      <Route path="create" element={<ExercisesCreate />} />
+                      <Route path="edit/:id" element={<ExercisesEdit />} />
+                      <Route path="show/:id" element={<ExercisesShow />} />
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>

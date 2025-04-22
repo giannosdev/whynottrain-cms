@@ -1,23 +1,24 @@
 import { Box, TextField } from "@mui/material";
-import { Edit } from "@refinedev/mui";
+import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 
-export const CategoryEdit = () => {
+export const ExerciseTypeCreate = () => {
   const {
     saveButtonProps,
+    refineCore: { formLoading },
     register,
     formState: { errors },
   } = useForm({});
 
   return (
-    <Edit saveButtonProps={saveButtonProps}>
+    <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
       <Box
         component="form"
         sx={{ display: "flex", flexDirection: "column" }}
         autoComplete="off"
       >
         <TextField
-          {...register("title", {
+          {...register("name", {
             required: "This field is required",
           })}
           error={!!(errors as any)?.title}
@@ -26,10 +27,10 @@ export const CategoryEdit = () => {
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label={"Title"}
-          name="title"
+          label={"Name"}
+          name="name"
         />
       </Box>
-    </Edit>
+    </Create>
   );
 };

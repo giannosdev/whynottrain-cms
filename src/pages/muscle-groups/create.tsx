@@ -1,27 +1,23 @@
-import { Autocomplete, Box, Select, TextField } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import { Edit, useAutocomplete } from "@refinedev/mui";
+import { Autocomplete, Box, MenuItem, Select, TextField } from "@mui/material";
+import { Create, useAutocomplete } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 
-export const BlogPostEdit = () => {
+export const MuscleGroupCreate = () => {
   const {
     saveButtonProps,
-    refineCore: { queryResult, formLoading },
+    refineCore: { formLoading },
     register,
     control,
     formState: { errors },
   } = useForm({});
 
-  const blogPostsData = queryResult?.data?.data;
-
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
-    defaultValue: blogPostsData?.category?.id,
   });
 
   return (
-    <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
+    <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
       <Box
         component="form"
         sx={{ display: "flex", flexDirection: "column" }}
@@ -52,7 +48,6 @@ export const BlogPostEdit = () => {
           multiline
           label={"Content"}
           name="content"
-          rows={4}
         />
         <Controller
           control={control}
@@ -119,6 +114,6 @@ export const BlogPostEdit = () => {
           }}
         />
       </Box>
-    </Edit>
+    </Create>
   );
 };

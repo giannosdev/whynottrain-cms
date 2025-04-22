@@ -3,7 +3,7 @@ import { Create, useAutocomplete } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 
-export const BlogPostCreate = () => {
+export const EquipmentCreate = () => {
   const {
     saveButtonProps,
     refineCore: { formLoading },

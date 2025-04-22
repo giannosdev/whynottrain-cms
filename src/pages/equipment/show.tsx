@@ -7,7 +7,7 @@ import {
   TextFieldComponent as TextField,
 } from "@refinedev/mui";
 
-export const BlogPostShow = () => {
+export const EquipmentShow = () => {
   const { query } = useShow({});
 
   const { data, isLoading } = query;
