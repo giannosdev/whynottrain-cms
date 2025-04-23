@@ -38,12 +38,13 @@ import {
 import { ForgotPassword } from "./pages/forgotPassword";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
-import {ExercisesCreate, ExercisesEdit, ExercisesList, ExercisesShow} from "./pages/exercises";
-import {Layers, LibraryBooks, Timer} from "@mui/icons-material";
-import {EquipmentCreate, EquipmentEdit, EquipmentList, EquipmentShow} from "./pages/equipment";
-import {MuscleGroupCreate, MuscleGroupEdit, MuscleGroupList, MuscleGroupShow} from "./pages/muscle-groups";
-import {WorkoutsCreate, WorkoutsEdit, WorkoutsList, WorkoutsShow} from "./pages/workouts";
-import {ExerciseTypeCreate, ExerciseTypeEdit, ExerciseTypeList, ExerciseTypeShow} from "./pages/exercise-types";
+import { ExercisesCreate, ExercisesEdit, ExercisesList, ExercisesShow } from "./pages/exercises";
+import { Layers, LibraryBooks, Timer } from "@mui/icons-material";
+import { EquipmentCreate, EquipmentEdit, EquipmentList, EquipmentShow } from "./pages/equipment";
+import { MuscleGroupCreate, MuscleGroupEdit, MuscleGroupList, MuscleGroupShow } from "./pages/muscle-groups";
+import { WorkoutsCreate, WorkoutsEdit, WorkoutsList, WorkoutsShow } from "./pages/workouts";
+import { ExerciseTypeCreate, ExerciseTypeEdit, ExerciseTypeList, ExerciseTypeShow } from "./pages/exercise-types";
+import { ClientCreate, ClientEdit, ClientList, ClientsShow } from "./pages/clients";
 
 function App() {
   return (
@@ -62,9 +63,70 @@ function App() {
                 authProvider={authProvider}
                 resources={[
                   {
+                    name: "clients",
+                    list: "/clients",
+                    create: "/clients/create",
+                    edit: "/clients/edit/:id",
+                    show: "/clients/show/:id",
+
+                    meta: {
+                      canDelete: true,
+                      icon: <Layers />,
+                      // parent: "training-library",
+
+                    },
+                  },
+                  {
+                    name: "training-library",
+                    meta: {
+                      label: "Training Library",
+                      icon: <LibraryBooks />,
+                    },
+                  },
+                  {
+                    name: "exercises",
+                    list: "/exercises",
+                    create: "/exercises/create",
+                    edit: "/exercises/edit/:id",
+                    show: "/exercises/show/:id",
+
+                    meta: {
+                      canDelete: true,
+                      icon: <FitnessCenterIcon />,
+                      parent: "training-library",
+                    },
+                  },
+                  {
+                    name: "workouts",
+                    list: "/workouts",
+                    create: "/workouts/create",
+                    edit: "/workouts/edit/:id",
+                    show: "/workouts/show/:id",
+
+                    meta: {
+                      canDelete: true,
+                      icon: <Timer />,
+                      parent: "training-library",
+                    },
+                  },
+                  {
+                    name: "programs",
+                    list: "/programs",
+                    create: "/programs/create",
+                    edit: "/programs/edit/:id",
+                    show: "/programs/show/:id",
+
+                    meta: {
+                      canDelete: true,
+                      icon: <Layers />,
+                      parent: "training-library",
+
+                    },
+                  },
+                  {
                     name: "properties",
                     meta: {
-                      label: "Properties",
+                      label: "Values",
                       // icon: <YourIcon />, // optional icon
                     },
                   },
@@ -89,53 +151,7 @@ function App() {
                     create: MuscleGroupCreate,
                     meta: { label: "Muscle Groups", parent: "properties", icon: <></> },
                   },
-                  {
-                    name: "training-library",
-                    meta: {
-                      label: "Training Library",
-                      icon: <LibraryBooks />,
-                    },
-                  },
-                  {
-                    name: "exercises",
-                    list: "/exercises",
-                    create: "/exercises/create",
-                    edit: "/exercises/edit/:id",
-                    show: "/exercises/show/:id",
 
-                    meta: {
-                      canDelete: true,
-                      icon: <FitnessCenterIcon/>,
-                      parent: "training-library",
-                    },
-                  },
-                  {
-                    name: "workouts",
-                    list: "/workouts",
-                    create: "/workouts/create",
-                    edit: "/workouts/edit/:id",
-                    show: "/workouts/show/:id",
-
-                    meta: {
-                      canDelete: true,
-                      icon: <Timer/>,
-                      parent: "training-library",
-                    },
-                  },
-                  {
-                    name: "programs",
-                    list: "/programs",
-                    create: "/programs/create",
-                    edit: "/programs/edit/:id",
-                    show: "/programs/show/:id",
-
-                    meta: {
-                      canDelete: true,
-                      icon: <Layers />,
-                      parent: "training-library",
-
-                    },
-                  },
                 ]}
                 options={{
                   syncWithLocation: true,
@@ -196,6 +212,12 @@ function App() {
                       <Route path="create" element={<ExercisesCreate />} />
                       <Route path="edit/:id" element={<ExercisesEdit />} />
                       <Route path="show/:id" element={<ExercisesShow />} />
+                    </Route>
+                    <Route path="/clients">
+                      <Route index element={<ClientList />} />
+                      <Route path="create" element={<ClientCreate />} />
+                      <Route path="edit/:id" element={<ClientEdit />} />
+                      <Route path="show/:id" element={<ClientsShow />} />
                     </Route>
                     <Route path="*" element={<ErrorComponent />} />
                   </Route>
